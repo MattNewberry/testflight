@@ -83,6 +83,43 @@
 
 <p>The testflight.Requester class has the following methods: Get, Post, Put, Delete and Do. Do accepts an *http.Request for times when you need more explicit control of our request. See testflight_test.go for more usage information.</p>
 
+<h2>Testing Websockets</h2>
+
+<p>Testflight also allows you to perform full-stack testing of websockets. You'll want to import both the testflight and testflight/ws packages.</p>
+
+<div class="highlight"><pre><span class="k">import</span> <span class="p">(</span>
+  <span class="s">"github.com/drewolson/testflight"</span>
+  <span class="s">"github.com/drewolson/testflight/ws"</span>
+<span class="p">)</span>
+</pre></div>
+
+<p>Now, let's make a handler with a websocket routeA.</p>
+
+<div class="highlight"><pre><span class="k">func</span> <span class="n">Handler</span><span class="p">()</span> <span class="n">http</span><span class="p">.</span><span class="n">Handler</span> <span class="p">{</span>
+    <span class="n">mux</span> <span class="p">:=</span> <span class="n">http</span><span class="p">.</span><span class="n">NewServeMux</span><span class="p">()</span>
+
+    <span class="n">mux</span><span class="p">.</span><span class="n">Handle</span><span class="p">(</span><span class="s">"/websocket"</span><span class="p">,</span> <span class="n">websocket</span><span class="p">.</span><span class="n">Handler</span><span class="p">(</span><span class="k">func</span><span class="p">(</span><span class="n">ws</span> <span class="p">*</span><span class="n">websocket</span><span class="p">.</span><span class="n">Conn</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">var</span> <span class="n">name</span> <span class="nb">string</span>
+        <span class="n">websocket</span><span class="p">.</span><span class="n">Message</span><span class="p">.</span><span class="n">Receive</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="p">&amp;</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">websocket</span><span class="p">.</span><span class="n">Message</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="s">"Hello, "</span><span class="p">+</span><span class="n">name</span><span class="p">)</span>
+    <span class="p">}))</span>
+
+    <span class="k">return</span> <span class="n">mux</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Finally, let's write the test.</p>
+
+<div class="highlight"><pre><span class="k">func</span> <span class="n">TestWebSocket</span><span class="p">(</span><span class="n">t</span> <span class="p">*</span><span class="n">testing</span><span class="p">.</span><span class="n">T</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">testflight</span><span class="p">.</span><span class="n">WithServer</span><span class="p">(</span><span class="n">Handler</span><span class="p">(),</span> <span class="k">func</span><span class="p">(</span><span class="n">r</span> <span class="p">*</span><span class="n">testflight</span><span class="p">.</span><span class="n">Requester</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">connection</span> <span class="p">:=</span> <span class="n">ws</span><span class="p">.</span><span class="n">Connect</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="s">"/websocket"</span><span class="p">)</span>
+
+        <span class="n">connection</span><span class="p">.</span><span class="n">WriteMessage</span><span class="p">(</span><span class="s">"Drew"</span><span class="p">)</span>
+        <span class="n">assert</span><span class="p">.</span><span class="n">Equal</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s">"Hello, Drew"</span><span class="p">,</span> <span class="n">connection</span><span class="p">.</span><span class="n">ReceiveMessage</span><span class="p">())</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+</pre></div>
+
 <h2>Contributing</h2>
 
 <p>First, run the tests.</p>
