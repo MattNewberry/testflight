@@ -93,7 +93,7 @@
 <span class="p">)</span>
 </pre></div>
 
-<p>Now, let's make a handler with a websocket routeA.</p>
+<p>Now, let's make a handler with a websocket route.</p>
 
 <div class="highlight"><pre><span class="k">func</span> <span class="n">Handler</span><span class="p">()</span> <span class="n">http</span><span class="p">.</span><span class="n">Handler</span> <span class="p">{</span>
     <span class="n">mux</span> <span class="p">:=</span> <span class="n">http</span><span class="p">.</span><span class="n">NewServeMux</span><span class="p">()</span>
@@ -130,6 +130,7 @@
 <span class="nb">export </span><span class="nv">GOPATH</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>
 
 go get github.com/drewolson/testflight
+go get code.google.com/p/go.net/websocket
 go get github.com/kr/pretty
 go get github.com/bmizerany/assert
 go get github.com/bmizerany/pat
