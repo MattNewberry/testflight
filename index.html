@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -21,73 +21,79 @@
       <div class="inner">
         <h1>Testflight</h1>
         <h2>Painless http testing in Go</h2>
-        <a href="https://github.com/drewolson/testflight" class="button"><small>View project on</small>GitHub</a>
+        <a href="https://github.com/drewolson/testflight" class="button"><small>View project on</small> GitHub</a>
       </div>
     </header>
 
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h1>testflight</h1>
+          <h1>
+<a name="testflight" class="anchor" href="#testflight"><span class="octicon octicon-link"></span></a>testflight</h1>
 
-<h2>Installation</h2>
+<p><a href="https://travis-ci.org/drewolson/testflight"><img src="https://travis-ci.org/drewolson/testflight.png?branch=master" alt="Build Status"></a></p>
 
-<div class="highlight"><pre>go get github.com/drewolson/testflight
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<div class="highlight highlight-bash"><pre>go get github.com/drewolson/testflight
 </pre></div>
 
-<div class="highlight"><pre><span class="k">import</span> <span class="s">"github.com/drewolson/testflight"</span>
+<div class="highlight highlight-go"><pre><span class="kn">import</span> <span class="s">"github.com/drewolson/testflight"</span>
 </pre></div>
 
-<h2>Usage</h2>
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>testflight makes it simple to test your http servers in Go. Suppose you're using <a href="https://github.com/bmizerany/pat">pat</a> to create a simple http handler, like so:</p>
 
-<div class="highlight"><pre><span class="k">func</span> <span class="n">Handler</span><span class="p">()</span> <span class="n">http</span><span class="p">.</span><span class="n">Handler</span> <span class="p">{</span>
-    <span class="n">m</span> <span class="p">:=</span> <span class="n">pat</span><span class="p">.</span><span class="n">New</span><span class="p">()</span>
+<div class="highlight highlight-go"><pre><span class="kd">func</span> <span class="nx">Handler</span><span class="p">()</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span> <span class="p">{</span>
+    <span class="nx">m</span> <span class="o">:=</span> <span class="nx">pat</span><span class="p">.</span><span class="nx">New</span><span class="p">()</span>
 
-    <span class="n">m</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"/hello/:name"</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">HandlerFunc</span><span class="p">(</span><span class="k">func</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="p">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">req</span> <span class="p">*</span><span class="n">http</span><span class="p">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">io</span><span class="p">.</span><span class="n">WriteString</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s">"hello, "</span><span class="p">+</span><span class="n">req</span><span class="p">.</span><span class="n">URL</span><span class="p">.</span><span class="n">Query</span><span class="p">().</span><span class="n">Get</span><span class="p">(</span><span class="s">":name"</span><span class="p">))</span>
+    <span class="nx">m</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">"/hello/:name"</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">io</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">"hello, "</span><span class="o">+</span><span class="nx">req</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">":name"</span><span class="p">))</span>
     <span class="p">}))</span>
 
-    <span class="n">m</span><span class="p">.</span><span class="n">Post</span><span class="p">(</span><span class="s">"/post/form"</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">HandlerFunc</span><span class="p">(</span><span class="k">func</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="p">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">req</span> <span class="p">*</span><span class="n">http</span><span class="p">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">req</span><span class="p">.</span><span class="n">ParseForm</span><span class="p">()</span>
-        <span class="n">name</span> <span class="p">:=</span> <span class="n">req</span><span class="p">.</span><span class="n">Form</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">.</span><span class="n">WriteHeader</span><span class="p">(</span><span class="mi">201</span><span class="p">)</span>
-        <span class="n">io</span><span class="p">.</span><span class="n">WriteString</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">name</span><span class="p">+</span><span class="s">" created"</span><span class="p">)</span>
+    <span class="nx">m</span><span class="p">.</span><span class="nx">Post</span><span class="p">(</span><span class="s">"/post/form"</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">ParseForm</span><span class="p">()</span>
+        <span class="nx">name</span> <span class="o">:=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">Form</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span>
+        <span class="nx">w</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="mi">201</span><span class="p">)</span>
+        <span class="nx">io</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">name</span><span class="o">+</span><span class="s">" created"</span><span class="p">)</span>
     <span class="p">}))</span>
 
-    <span class="k">return</span> <span class="n">m</span>
+    <span class="k">return</span> <span class="nx">m</span>
 <span class="p">}</span>
 </pre></div>
 
 <p>Let's use testflight to test our handler. Keep in mind that testflight is doing full-stack http tests. We're also using assert for test assertions.</p>
 
-<div class="highlight"><pre><span class="k">func</span> <span class="n">TestGet</span><span class="p">(</span><span class="n">t</span> <span class="p">*</span><span class="n">testing</span><span class="p">.</span><span class="n">T</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">testflight</span><span class="p">.</span><span class="n">WithServer</span><span class="p">(</span><span class="n">Handler</span><span class="p">(),</span> <span class="k">func</span><span class="p">(</span><span class="n">r</span> <span class="p">*</span><span class="n">testflight</span><span class="p">.</span><span class="n">Requester</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">response</span> <span class="p">:=</span> <span class="n">r</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"/hello/drew"</span><span class="p">)</span>
+<div class="highlight highlight-go"><pre><span class="kd">func</span> <span class="nx">TestGet</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">testflight</span><span class="p">.</span><span class="nx">WithServer</span><span class="p">(</span><span class="nx">Handler</span><span class="p">(),</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">testflight</span><span class="p">.</span><span class="nx">Requester</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">response</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">"/hello/drew"</span><span class="p">)</span>
 
-        <span class="n">assert</span><span class="p">.</span><span class="n">Equal</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">StatusCode</span><span class="p">)</span>
-        <span class="n">assert</span><span class="p">.</span><span class="n">Equal</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s">"hello, drew"</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">Body</span><span class="p">)</span>
+        <span class="nx">assert</span><span class="p">.</span><span class="nx">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">)</span>
+        <span class="nx">assert</span><span class="p">.</span><span class="nx">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="s">"hello, drew"</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
     <span class="p">})</span>
 <span class="p">}</span>
 
-<span class="k">func</span> <span class="n">TestPostWithForm</span><span class="p">(</span><span class="n">t</span> <span class="p">*</span><span class="n">testing</span><span class="p">.</span><span class="n">T</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">testflight</span><span class="p">.</span><span class="n">WithServer</span><span class="p">(</span><span class="n">Handler</span><span class="p">(),</span> <span class="k">func</span><span class="p">(</span><span class="n">r</span> <span class="p">*</span><span class="n">testflight</span><span class="p">.</span><span class="n">Requester</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">response</span> <span class="p">:=</span> <span class="n">r</span><span class="p">.</span><span class="n">Post</span><span class="p">(</span><span class="s">"/post/form"</span><span class="p">,</span> <span class="n">testflight</span><span class="p">.</span><span class="n">FORM_ENCODED</span><span class="p">,</span> <span class="s">"name=Drew"</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nx">TestPostWithForm</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">testflight</span><span class="p">.</span><span class="nx">WithServer</span><span class="p">(</span><span class="nx">Handler</span><span class="p">(),</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">testflight</span><span class="p">.</span><span class="nx">Requester</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">response</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Post</span><span class="p">(</span><span class="s">"/post/form"</span><span class="p">,</span> <span class="nx">testflight</span><span class="p">.</span><span class="nx">FORM_ENCODED</span><span class="p">,</span> <span class="s">"name=Drew"</span><span class="p">)</span>
 
-        <span class="n">assert</span><span class="p">.</span><span class="n">Equal</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">201</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">StatusCode</span><span class="p">)</span>
-        <span class="n">assert</span><span class="p">.</span><span class="n">Equal</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s">"Drew created"</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">Body</span><span class="p">)</span>
+        <span class="nx">assert</span><span class="p">.</span><span class="nx">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="mi">201</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">)</span>
+        <span class="nx">assert</span><span class="p">.</span><span class="nx">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="s">"Drew created"</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
     <span class="p">})</span>
 <span class="p">}</span>
 </pre></div>
 
 <p>The testflight.Requester class has the following methods: Get, Post, Put, Delete and Do. Do accepts an *http.Request for times when you need more explicit control of our request. See testflight_test.go for more usage information.</p>
 
-<h2>Testing Websockets</h2>
+<h2>
+<a name="testing-websockets" class="anchor" href="#testing-websockets"><span class="octicon octicon-link"></span></a>Testing Websockets</h2>
 
 <p>Testflight also allows you to perform full-stack testing of websockets. You'll want to import both the testflight and testflight/ws packages.</p>
 
-<div class="highlight"><pre><span class="k">import</span> <span class="p">(</span>
+<div class="highlight highlight-go"><pre><span class="kn">import</span> <span class="p">(</span>
     <span class="s">"github.com/drewolson/testflight"</span>
     <span class="s">"github.com/drewolson/testflight/ws"</span>
 <span class="p">)</span>
@@ -95,48 +101,41 @@
 
 <p>Now, let's make a handler with a websocket route.</p>
 
-<div class="highlight"><pre><span class="k">func</span> <span class="n">Handler</span><span class="p">()</span> <span class="n">http</span><span class="p">.</span><span class="n">Handler</span> <span class="p">{</span>
-    <span class="n">mux</span> <span class="p">:=</span> <span class="n">http</span><span class="p">.</span><span class="n">NewServeMux</span><span class="p">()</span>
+<div class="highlight highlight-go"><pre><span class="kd">func</span> <span class="nx">Handler</span><span class="p">()</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span> <span class="p">{</span>
+    <span class="nx">mux</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">NewServeMux</span><span class="p">()</span>
 
-    <span class="n">mux</span><span class="p">.</span><span class="n">Handle</span><span class="p">(</span><span class="s">"/websocket"</span><span class="p">,</span> <span class="n">websocket</span><span class="p">.</span><span class="n">Handler</span><span class="p">(</span><span class="k">func</span><span class="p">(</span><span class="n">ws</span> <span class="p">*</span><span class="n">websocket</span><span class="p">.</span><span class="n">Conn</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">var</span> <span class="n">name</span> <span class="nb">string</span>
-        <span class="n">websocket</span><span class="p">.</span><span class="n">Message</span><span class="p">.</span><span class="n">Receive</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="p">&amp;</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">websocket</span><span class="p">.</span><span class="n">Message</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="s">"Hello, "</span><span class="p">+</span><span class="n">name</span><span class="p">)</span>
+    <span class="nx">mux</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">"/websocket"</span><span class="p">,</span> <span class="nx">websocket</span><span class="p">.</span><span class="nx">Handler</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">ws</span> <span class="o">*</span><span class="nx">websocket</span><span class="p">.</span><span class="nx">Conn</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">name</span> <span class="kt">string</span>
+        <span class="nx">websocket</span><span class="p">.</span><span class="nx">Message</span><span class="p">.</span><span class="nx">Receive</span><span class="p">(</span><span class="nx">ws</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">name</span><span class="p">)</span>
+        <span class="nx">websocket</span><span class="p">.</span><span class="nx">Message</span><span class="p">.</span><span class="nx">Send</span><span class="p">(</span><span class="nx">ws</span><span class="p">,</span> <span class="s">"Hello, "</span><span class="o">+</span><span class="nx">name</span><span class="p">)</span>
     <span class="p">}))</span>
 
-    <span class="k">return</span> <span class="n">mux</span>
+    <span class="k">return</span> <span class="nx">mux</span>
 <span class="p">}</span>
 </pre></div>
 
 <p>Finally, let's write the test.</p>
 
-<div class="highlight"><pre><span class="k">func</span> <span class="n">TestWebSocket</span><span class="p">(</span><span class="n">t</span> <span class="p">*</span><span class="n">testing</span><span class="p">.</span><span class="n">T</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">testflight</span><span class="p">.</span><span class="n">WithServer</span><span class="p">(</span><span class="n">Handler</span><span class="p">(),</span> <span class="k">func</span><span class="p">(</span><span class="n">r</span> <span class="p">*</span><span class="n">testflight</span><span class="p">.</span><span class="n">Requester</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">connection</span> <span class="p">:=</span> <span class="n">ws</span><span class="p">.</span><span class="n">Connect</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="s">"/websocket"</span><span class="p">)</span>
+<div class="highlight highlight-go"><pre><span class="kd">func</span> <span class="nx">TestWebSocket</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">testflight</span><span class="p">.</span><span class="nx">WithServer</span><span class="p">(</span><span class="nx">Handler</span><span class="p">(),</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">testflight</span><span class="p">.</span><span class="nx">Requester</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">connection</span> <span class="o">:=</span> <span class="nx">ws</span><span class="p">.</span><span class="nx">Connect</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="s">"/websocket"</span><span class="p">)</span>
 
-        <span class="n">connection</span><span class="p">.</span><span class="n">SendMessage</span><span class="p">(</span><span class="s">"Drew"</span><span class="p">)</span>
-        <span class="n">message</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">connection</span><span class="p">.</span><span class="n">ReceiveMessage</span><span class="p">()</span>
-        <span class="n">assert</span><span class="p">.</span><span class="n">Equal</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s">"Hello, Drew"</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+        <span class="nx">connection</span><span class="p">.</span><span class="nx">SendMessage</span><span class="p">(</span><span class="s">"Drew"</span><span class="p">)</span>
+        <span class="nx">message</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">connection</span><span class="p">.</span><span class="nx">ReceiveMessage</span><span class="p">()</span>
+        <span class="nx">assert</span><span class="p">.</span><span class="nx">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="s">"Hello, Drew"</span><span class="p">,</span> <span class="nx">message</span><span class="p">)</span>
     <span class="p">})</span>
 <span class="p">}</span>
 </pre></div>
 
-<h2>Contributing</h2>
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
 
 <p>First, run the tests.</p>
 
-<div class="highlight"><pre>mkdir testflight
-<span class="nb">cd </span>testflight
+<div class="highlight highlight-bash"><pre>git clone git@github.com:drewolson/testflight.git <span class="nv">$GOPATH</span>/src/github.com/drewolson/testflight
+<span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/github.com/drewolson/testflight
 
-<span class="nb">export </span><span class="nv">GOPATH</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>
-
-go get github.com/drewolson/testflight
-go get code.google.com/p/go.net/websocket
-go get github.com/kr/pretty
-go get github.com/bmizerany/assert
-go get github.com/bmizerany/pat
-
-go <span class="nb">test </span>github.com/drewolson/testflight
+make <span class="nb">test</span>
 </pre></div>
 
 <p>Now write new tests, fix them and send me a pull request!</p>
@@ -154,7 +153,7 @@ go <span class="nb">test </span>github.com/drewolson/testflight
 
           <p class="repo-owner"><a href="https://github.com/drewolson/testflight"></a> is maintained by <a href="https://github.com/drewolson">drewolson</a>.</p>
 
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
         </aside>
       </div>
     </div>
